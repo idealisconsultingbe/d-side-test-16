@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="dsi_choose_section_wizard_form" model="ir.ui.view">
+        <field name="name">dsi.choose.section.wizard.form</field>
+        <field name="model">dsi.choose.section.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <group>
+                    <field name="sale_order_id"/>
+                    <field name="template_id"/>
+                    <field name="section_ids" invisible="1"/>
+                </group>
+                <notebook>
+                    <page name="sections" string="Sections">
+                        <field name="new_section_ids" domain="[('id', 'in', section_ids), ('display_type', '=', 'line_section')]"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button string="Confirm" class="btn btn-primary" type="object" name="confirm_selection"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dsi_choose_section_wizard" model="ir.actions.act_window">
+        <field name="name">Choose Section Wizard</field>
+        <field name="res_model">dsi.choose.section.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

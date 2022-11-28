@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sales_team.res_partner_view_team"/>
+        <field name="arch" type="xml">
+            <!-- Make parent_id field editable for partner of type company -->
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('company_name', '!=', False),('company_name', '!=', '')]}</attribute>
+                <attribute name="placeholder">Parent Company</attribute>
+            </xpath>
+
+            <!-- Allow modification of addresses and vat for contact with a parent. -->
+            <xpath expr="//field[@name='street']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='street2']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='state_id']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='zip']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="dsi_lead_user_id"/>
+                <field name="dsi_involved_user_ids">
+                    <tree>
+                        <field name="name"/>
+                        <field name="company_id" optional="Show"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_by']" position="inside">
+                <filter name="group_top_parent" string="Top Company" context="{'group_by': 'dsi_top_parent'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
