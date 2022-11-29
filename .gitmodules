@@ -2,3 +2,8 @@
 	path = OCA/partner-contact
 	url = git@github.com:OCA/partner-contact.git
 	branch = 16.0
+
+[submodule "idealisconsultingbe/d-sidegroup"]
+	path = idealisconsultingbe/d-sidegroup
+	url = git@github.com:idealisconsultingbe/d-sidegroup.git
+	branch = 16.0
